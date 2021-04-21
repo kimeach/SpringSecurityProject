@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	test 입니다.
+	<div th:each="li : ${list}">
+		ID : <span th:text="${li.id}"></span> ,
+		PW : <span th:text="${li.pw}"></span>
+	</div>
+</body>
+</html>

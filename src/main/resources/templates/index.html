@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html 	xmlns:th="http://www.thymeleaf.org"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
+<head th:include="layout/config::header">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 </head>
 <body>
-	test 입니다.
-	<div th:each="li : ${list}">
-		ID : <span th:text="${li.id}"></span> ,
-		PW : <span th:text="${li.pw}"></span>
-	</div>
+		<table class="table table-hover" style="width:50%;">
+			<tr>
+				<th>NO.</th>
+				<th>ID</th>	
+				<th>PW</th>
+			</tr>
+			<tr th:each="li,num : ${list}">
+				<td><span th:text="${num.count}"></span></td>
+				<td><span th:text="${li.id}"></span></td>
+				<td><span th:text="${li.pw}"></span></td>
+			</tr>
+		</table>
+		
+		<div style="width:50%;margin:5% 20%">
+			<button id="loginBtn"  class="btn btn-primary">로그인</button>
+			<button id="signUpBtn" class="btn btn-primary">회원가입</button>
+		</div>
+		
+		<script type="text/javascript">
+		$(function(){
+			$("#loginBtn").click(function(){
+				location.href="/login"
+			})
+			
+			$("#signUpBtn").click(function(){
+				location.href="/signUp"
+			})
+		})
+			
+		</script>
 </body>
 </html>

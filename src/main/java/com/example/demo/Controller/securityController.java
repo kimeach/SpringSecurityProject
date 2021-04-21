@@ -9,18 +9,27 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.Service.securityService;
 
 @Controller
-@RequestMapping("/secu")
 public class securityController {
 
 	@Autowired
 	securityService serv;
 	
-	@GetMapping
+	@GetMapping("/index")
 	public ModelAndView getIndex() {
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("list", serv.getAll());
 		return mav;
 	}
 	
+	@GetMapping("/login")
+	public ModelAndView getLogin() {
+		ModelAndView mav = new ModelAndView("login");
+		return mav;
+	}
 	
+	@GetMapping("/signUp")
+	public ModelAndView getSignUp() {
+		ModelAndView mav = new ModelAndView("signUp");
+		return mav;
+	}
 }

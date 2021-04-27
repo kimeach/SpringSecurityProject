@@ -8,3 +8,4 @@ Spring Security 참고 동영상 URL : https://www.youtube.com/watch?v=uaEuT7ZfQ
 4.@EnableGlobalMethodSecurity 사용 방법
  - @secured
  - @PreAuthorize
+ 

@@ -1,39 +1,27 @@
 package com.example.demo.Model;
 
-import javax.persistence.Column;
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Data;
+
 @Entity
-@Table(name="User")
-
+@Data
 public class User {
-
 	@Id
-	@Column(name="id")
-	private String id;
-	
-	@Column(name="pw")	
-	private String pw;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPw() {
-		return pw;
-	}
-
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-
-	public User() {
-	}
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String username;
+	private String password;
+	private String email;
+	private String role;
+	@CreationTimestamp
+	private Timestamp createDate; 
 }

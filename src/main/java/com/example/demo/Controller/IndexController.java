@@ -4,12 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.Config.auth.PrincipalDetails;
 import com.example.demo.Model.User;
 import com.example.demo.Repository.UserRepository;
 
@@ -21,13 +26,44 @@ public class IndexController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	
+	@GetMapping("/test/login")
+	public @ResponseBody String testLogin(
+			Authentication authentication,
+			@AuthenticationPrincipal PrincipalDetails userDetails) { //DI(의존성 주입)
+		System.out.println("/test/login ============");
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal(); //구글 로그인시 error
+		System.out.println("authentication : "+principalDetails.getUser());
+		
+		System.out.println("userDetails : "+userDetails.getUser());
+		
+		return "세션 정보 확인하기";
+	}
+	
+	@GetMapping("/test/oauth/login")
+	public @ResponseBody String testOauthLogin(
+			Authentication authentication,
+			@AuthenticationPrincipal OAuth2User oauth) { //DI(의존성 주입)
+		System.out.println("/test/login ============");
+		
+		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal(); //구글 로그인시 error
+		System.out.println("authentication : "+oAuth2User.getAttributes());
+		System.out.println("oauth : "+oauth.getAttributes());
+		return "세션 정보 확인하기";
+	}
+	
+	
+	
 	@GetMapping({"","/"})
 	public String index() {
 		return "index";
 	}
 	
 	@GetMapping("/user")
-	public String user() {
+	public String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+		System.out.println("principalDetails : "+principalDetails.getUser());
 		return "user";
 	}
 	
